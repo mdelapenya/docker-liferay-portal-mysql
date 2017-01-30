@@ -6,7 +6,9 @@ ENV DEBIAN_FRONTEND noninteractive
 USER root
 
 # Install packages
-RUN echo 'deb http://repo.mysql.com/apt/debian jessie mysql-5.7' > /etc/apt/sources.list.d/mysql-5.7.list && \
+RUN rm /var/lib/apt/lists/* /etc/apt/sources.list.d/* && \
+  apt-get update && \
+  echo 'deb http://repo.mysql.com/apt/debian jessie mysql-5.7' > /etc/apt/sources.list.d/mysql-5.7.list && \
   gpg --export 5072E1F5 > /etc/apt/trusted.gpg.d/5072E1F5.gpg && \
   gpg --recv-keys 5072E1F5 && \
   gpg --export 5072E1F5 > /etc/apt/trusted.gpg.d/5072E1F5.gpg && \

@@ -37,11 +37,11 @@ RUN chmod 755 /*.sh
 RUN mkdir -p "$LIFERAY_HOME"
 WORKDIR $LIFERAY_HOME
 RUN set -x && \
-			curl -fSL "$LIFERAY_TOMCAT_URL" -o liferay-ce-portal-tomcat-7.0-ga3-20160804222206210.zip && \
-			unzip liferay-ce-portal-tomcat-7.0-ga3-20160804222206210.zip && \
-			rm liferay-ce-portal-tomcat-7.0-ga3-20160804222206210.zip && \
-      cp -R $LIFERAY_HOME/liferay-ce-portal-7.0-ga3/* $LIFERAY_HOME/ && \
-      rm -fr $LIFERAY_HOME/liferay-ce-portal-7.0-ga3
+  curl -fSL "$LIFERAY_TOMCAT_URL" -o liferay-ce-portal-tomcat-7.0-ga3-20160804222206210.zip && \
+	unzip liferay-ce-portal-tomcat-7.0-ga3-20160804222206210.zip && \
+	rm liferay-ce-portal-tomcat-7.0-ga3-20160804222206210.zip && \
+  cp -R $LIFERAY_HOME/liferay-ce-portal-7.0-ga3/* $LIFERAY_HOME/ && \
+  rm -fr $LIFERAY_HOME/liferay-ce-portal-7.0-ga3
 
 ADD portal-ext.properties $LIFERAY_HOME/portal-ext.properties
 

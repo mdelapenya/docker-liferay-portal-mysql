@@ -13,7 +13,8 @@ RUN echo 'deb http://repo.mysql.com/apt/debian jessie mysql-5.7' > /etc/apt/sour
   apt-get update && \
   apt-get -y install curl supervisor mysql-server="5.7.17-1debian8" pwgen unzip && \
   apt-get clean && \
-  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+  useradd -ms /bin/bash liferay
 
 # Add image configuration and scripts
 ADD start-tomcat.sh /start-tomcat.sh
@@ -43,6 +44,8 @@ RUN set -x && \
       rm -fr $LIFERAY_HOME/liferay-ce-portal-7.0-ga3
 
 ADD portal-ext.properties $LIFERAY_HOME/portal-ext.properties
+
+RUN chown -R liferay:liferay $LIFERAY_HOME
 
 # Add volumes for MySQL 
 VOLUME  ["/etc/mysql", "/var/lib/mysql", "/liferay/data"]

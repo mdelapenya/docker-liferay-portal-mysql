@@ -1,6 +1,3 @@
-# About this image
-
-Out-of-the-box image using Liferay Tomcat bundle with MySQL 5.7 installed in the same container.
 
 ## Connecting to the bundled MySQL server from outside the container
 

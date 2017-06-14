@@ -1,1 +1,1 @@
-mysql -uadmin -p$MYSQL_PASS -e 'CREATE DATABASE lportal CHARACTER SET UTF8'
+mysql -uroot -e 'CREATE DATABASE lportal CHARACTER SET UTF8'

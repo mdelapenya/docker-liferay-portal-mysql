@@ -3,7 +3,7 @@ MAINTAINER Manuel de la Peña <manuel.delapenya@liferay.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LIFERAY_HOME=/liferay
-ENV LIFERAY_TOMCAT_URL=https://sourceforge.net/projects/lportal/files/Liferay%20Portal/7.0.2%20GA3/liferay-ce-portal-tomcat-7.0-ga3-20160804222206210.zip/download
+ENV LIFERAY_TOMCAT_URL=https://sourceforge.net/projects/lportal/files/Liferay%20Portal/7.0.3%20GA4/liferay-ce-portal-tomcat-7.0-ga4-20170613175008905.zip/download
 
 # Install packages
 RUN echo 'deb http://repo.mysql.com/apt/debian jessie mysql-5.7' > /etc/apt/sources.list.d/mysql-5.7.list && \
@@ -34,11 +34,11 @@ WORKDIR $LIFERAY_HOME
 RUN rm -rf /var/lib/mysql/* && \
   mkdir -p "$LIFERAY_HOME" && \
   set -x && \
-  curl -fSL "$LIFERAY_TOMCAT_URL" -o liferay-ce-portal-tomcat-7.0-ga3-20160804222206210.zip && \
-	unzip liferay-ce-portal-tomcat-7.0-ga3-20160804222206210.zip && \
-	rm liferay-ce-portal-tomcat-7.0-ga3-20160804222206210.zip && \
-  cp -R $LIFERAY_HOME/liferay-ce-portal-7.0-ga3/* $LIFERAY_HOME/ && \
-  rm -fr $LIFERAY_HOME/liferay-ce-portal-7.0-ga3 && \
+  curl -fSL "$LIFERAY_TOMCAT_URL" -o liferay-ce-portal-tomcat-7.0-ga4-20170613175008905.zip && \
+	unzip liferay-ce-portal-tomcat-7.0-ga4-20170613175008905.zip && \
+	rm liferay-ce-portal-tomcat-7.0-ga4-20170613175008905.zip && \
+  cp -R $LIFERAY_HOME/liferay-ce-portal-7.0-ga4/* $LIFERAY_HOME/ && \
+  rm -fr $LIFERAY_HOME/liferay-ce-portal-7.0-ga4 && \
   chmod 755 /*.sh && \
   chown -R liferay:liferay $LIFERAY_HOME
 

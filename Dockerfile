@@ -20,32 +20,30 @@ RUN echo 'deb http://repo.mysql.com/apt/debian jessie mysql-5.7' > /etc/apt/sour
 ADD start-tomcat.sh /start-tomcat.sh
 ADD start-mysqld.sh /start-mysqld.sh
 ADD run.sh /run.sh
-RUN chmod 755 /*.sh
 ADD my.cnf /etc/mysql/conf.d/my.cnf
 ADD supervisord-tomcat.conf /etc/supervisor/conf.d/supervisord-tomcat.conf
 ADD supervisord-mysqld.conf /etc/supervisor/conf.d/supervisord-mysqld.conf
 
-# Remove pre-installed database
-RUN rm -rf /var/lib/mysql/*
-
 # Add MySQL utils
 ADD create_mysql_admin_user.sh /create_mysql_admin_user.sh
 ADD mysql-setup.sh /mysql-setup.sh
-RUN chmod 755 /*.sh
 
 # Configure /liferay folder
-RUN mkdir -p "$LIFERAY_HOME"
 WORKDIR $LIFERAY_HOME
-RUN set -x && \
+# Remove pre-installed database
+RUN rm -rf /var/lib/mysql/* && \
+  mkdir -p "$LIFERAY_HOME" && \
+  set -x && \
   curl -fSL "$LIFERAY_TOMCAT_URL" -o liferay-ce-portal-tomcat-7.0-ga3-20160804222206210.zip && \
 	unzip liferay-ce-portal-tomcat-7.0-ga3-20160804222206210.zip && \
 	rm liferay-ce-portal-tomcat-7.0-ga3-20160804222206210.zip && \
   cp -R $LIFERAY_HOME/liferay-ce-portal-7.0-ga3/* $LIFERAY_HOME/ && \
-  rm -fr $LIFERAY_HOME/liferay-ce-portal-7.0-ga3
+  rm -fr $LIFERAY_HOME/liferay-ce-portal-7.0-ga3 && \
+  chmod 755 /*.sh && \
+  chown -R liferay:liferay $LIFERAY_HOME
 
+# Add custom portal configuration
 ADD portal-ext.properties $LIFERAY_HOME/portal-ext.properties
-
-RUN chown -R liferay:liferay $LIFERAY_HOME
 
 # Add volumes for MySQL 
 VOLUME  ["/etc/mysql", "/var/lib/mysql", "/liferay/data"]

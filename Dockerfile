@@ -3,7 +3,7 @@ MAINTAINER Manuel de la Peña <manuel.delapenya@liferay.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LIFERAY_HOME=/liferay
-ENV LIFERAY_TOMCAT_URL=https://sourceforge.net/projects/lportal/files/Liferay%20Portal/7.0.3%20GA4/liferay-ce-portal-tomcat-7.0-ga4-20170613175008905.zip/download
+ENV LIFERAY_TOMCAT_URL=https://sourceforge.net/projects/lportal/files/Liferay%20Portal/7.1.0%20GA1/liferay-ce-portal-tomcat-7.1.0-ga1-20180703012531655.zip/download
 
 # Install packages
 RUN echo 'deb http://repo.mysql.com/apt/debian jessie mysql-5.7' > /etc/apt/sources.list.d/mysql-5.7.list && \
@@ -11,7 +11,7 @@ RUN echo 'deb http://repo.mysql.com/apt/debian jessie mysql-5.7' > /etc/apt/sour
   gpg --recv-keys 5072E1F5 && \
   gpg --export 5072E1F5 > /etc/apt/trusted.gpg.d/5072E1F5.gpg && \
   apt-get update && \
-  apt-get -y install curl supervisor mysql-server="5.7.18-1debian8" pwgen telnet unzip && \
+  apt-get -y install curl supervisor mysql-server="5.7.23-1debian8" pwgen telnet unzip && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
   useradd -ms /bin/bash liferay
@@ -34,11 +34,11 @@ WORKDIR $LIFERAY_HOME
 RUN rm -rf /var/lib/mysql/* && \
   mkdir -p "$LIFERAY_HOME" && \
   set -x && \
-  curl -fSL "$LIFERAY_TOMCAT_URL" -o liferay-ce-portal-tomcat-7.0-ga4-20170613175008905.zip && \
-	unzip liferay-ce-portal-tomcat-7.0-ga4-20170613175008905.zip && \
-	rm liferay-ce-portal-tomcat-7.0-ga4-20170613175008905.zip && \
-  cp -R $LIFERAY_HOME/liferay-ce-portal-7.0-ga4/* $LIFERAY_HOME/ && \
-  rm -fr $LIFERAY_HOME/liferay-ce-portal-7.0-ga4 && \
+  curl -fSL "$LIFERAY_TOMCAT_URL" -o liferay-ce-portal-tomcat-7.1.0-ga1-20180703012531655.zip && \
+	unzip liferay-ce-portal-tomcat-7.1.0-ga1-20180703012531655.zip && \
+	rm liferay-ce-portal-tomcat-7.1.0-ga1-20180703012531655.zip && \
+  cp -R $LIFERAY_HOME/liferay-ce-portal-7.1.0-ga1/* $LIFERAY_HOME/ && \
+  rm -fr $LIFERAY_HOME/liferay-ce-portal-7.1.0-ga1 && \
   chmod 755 /*.sh && \
   chown -R liferay:liferay $LIFERAY_HOME
 
